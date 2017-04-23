@@ -71,7 +71,7 @@ public:
         rear = Iterator(Rear);
     }
 
-    
+    // создаем дек с единственным элементом
     Deque(const value_type &a) : Front(new Elem()), Rear(Front), Count(0) {
         Rear->Next = Rear->Prev = 0;
         ffront = Iterator(Front);
@@ -80,18 +80,18 @@ public:
     }
 
     ~Deque() {
-        Elem *delete_Elem = Front;           
-        for (Elem *p = Front; p != Rear;)       
+        Elem *delete_Elem = Front;           // удаляемый элемент
+        for (Elem *p = Front; p != Rear;)       // Пока не уперлись в запредельный
         {
-            p = p->Next;                      
+            p = p->Next;                      // подготовили следующий
             delete delete_Elem;
-            --Count;      
-            delete_Elem = p;                 
+            --Count;      // удалили элемент
+            delete_Elem = p;                  // подготовили для удаления
         }
         delete delete_Elem;
     }
 
-    bool isEmpty() const                    
+    bool isEmpty() const                    // есть ли элементы в деке
     {
         bool t = (Front == Rear);
         return t;
@@ -125,11 +125,11 @@ public:
     }
 
     void push_front(const value_type &a) {
-        Elem *p = new Elem(a);          
+        Elem *p = new Elem(a);          // образовали новый элемент
         p->Next = Front;
-        p->Prev = 0;    
+        p->Prev = 0;    // "привязали"
         Front->Prev = p;
-        Front = p;       
+        Front = p;       // первым в деке
         ffront = Iterator(Front);
         ++Count;
     }
@@ -176,8 +176,8 @@ public:
         Elem *tmp;
         while (Front != nullptr) {
             tmp = Front;
-            Front = Front->Next;
-            delete tmp;
+            Front = Front->Next;//переходим к след
+            delete tmp;// удаляем предыдущий
         }
     }
 
@@ -216,10 +216,10 @@ private:
 
         Elem() {}
 
-        ~Elem() {}               
-        value_type Value;            
-        Elem *Next;             
-        Elem *Prev;             
+        ~Elem() {}               // объявлять необязательно
+        value_type Value;            // информационная часть элемента
+        Elem *Next;             // следующий элемент
+        Elem *Prev;             // предыдущий элемент
     };
 
     Deque &operator=(const Deque &) {}
