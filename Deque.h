@@ -71,7 +71,7 @@ public:
         rear = Iterator(Rear);
     }
 
-    // создаем дек с единственным элементом
+
     Deque(const value_type &a) : Front(new Elem()), Rear(Front), Count(0) {
         Rear->Next = Rear->Prev = 0;
         ffront = Iterator(Front);
@@ -80,18 +80,18 @@ public:
     }
 
     ~Deque() {
-        Elem *delete_Elem = Front;           // удаляемый элемент
-        for (Elem *p = Front; p != Rear;)       // Пока не уперлись в запредельный
+        Elem *delete_Elem = Front;
+        for (Elem *p = Front; p != Rear;)
         {
-            p = p->Next;                      // подготовили следующий
+            p = p->Next;
             delete delete_Elem;
-            --Count;      // удалили элемент
-            delete_Elem = p;                  // подготовили для удаления
+            --Count;
+            delete_Elem = p;
         }
         delete delete_Elem;
     }
 
-    bool isEmpty() const                    // есть ли элементы в деке
+    bool empty() const
     {
         bool t = (Front == Rear);
         return t;
@@ -102,20 +102,20 @@ public:
     }
 
     reference front() {
-        if (isEmpty())
+        if (empty())
             throw new DequeEmptyException();
 
         return Front->Value;
     }
 
     reference back() {
-        if (isEmpty())
+        if (empty())
             throw new DequeEmptyException();
 
         return Rear->Value;
     }
 
-    // методы доступа
+
     Iterator begin() {
         return ffront;
     }
@@ -125,17 +125,17 @@ public:
     }
 
     void push_front(const value_type &a) {
-        Elem *p = new Elem(a);          // образовали новый элемент
+        Elem *p = new Elem(a);
         p->Next = Front;
-        p->Prev = 0;    // "привязали"
+        p->Prev = 0;
         Front->Prev = p;
-        Front = p;       // первым в деке
+        Front = p;
         ffront = Iterator(Front);
         ++Count;
     }
 
     void push_back(const value_type &a) {
-        if (isEmpty()) push_front(a);
+        if (empty()) push_front(a);
         else {
             Elem *p = new Elem(a);
             p->Next = Rear;
@@ -147,7 +147,7 @@ public:
     }
 
     void pop_front() {
-        if (!isEmpty()) {
+        if (!empty()) {
             Elem *p = Front;
             Front = Front->Next;
             Front->Prev = 0;
@@ -159,7 +159,7 @@ public:
     }
 
     void pop_back() {
-        if (!isEmpty()) {
+        if (!empty()) {
             Elem *p = Rear->Prev;
             if (p == 0) pop_front();
             else {
@@ -216,10 +216,10 @@ private:
 
         Elem() {}
 
-        ~Elem() {}               // объявлять необязательно
-        value_type Value;            // информационная часть элемента
-        Elem *Next;             // следующий элемент
-        Elem *Prev;             // предыдущий элемент
+        ~Elem() {}
+        value_type Value;
+        Elem *Next;
+        Elem *Prev;
     };
 
     Deque &operator=(const Deque &) {}
