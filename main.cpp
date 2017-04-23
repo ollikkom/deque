@@ -2,12 +2,12 @@
 #include "Deque.h"
 
 int main() {
-    TDeque <int> obj(8.0);
-    TDeque <int> L(5.0);
+    Deque <int> obj(8.0);
+    Deque <int> L(5.0);
     L.push_front(1); L.push_front(2); L.push_front(3);
     std::cout<< L.size()<<std::endl;
 
-    TDeque<int>::Iterator i;
+    Deque<int>::Iterator i;
     for( auto i = L.begin(); i != L.end();++i ) {
         std::cout<<">> "<<(*i)<<std::endl;
     }
