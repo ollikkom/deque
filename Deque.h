@@ -141,14 +141,14 @@ public:
         if (empty())
             throw new DequeEmptyException();
 
-        return Front->Value;
+        return Front->Prev->Value;
     }
 
     reference back() {
         if (empty())
             throw new DequeEmptyException();
 
-        return Rear->Value;
+        return Rear->Next->Value;
     }
 
 
