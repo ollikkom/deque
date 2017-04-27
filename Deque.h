@@ -178,8 +178,8 @@ public:
             p->Prev = Rear->Prev;
             Rear->Prev->Next = p;
             Rear->Prev = p;
+            ++Count;
         }
-        ++Count;
     }
 
     void pop_front() {
