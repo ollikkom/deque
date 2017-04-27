@@ -79,6 +79,42 @@ public:
         push_front(a);
     }
 
+    /*Deque &operator=(const Deque &t) {
+        clear();
+        Elem *tmp = t.Front;
+        for(int i = 0; i < Count; ++i){
+            push_back(tmp);
+            tmp = tmp->Next;
+        }
+    }*/
+
+    Deque &operator=(const Deque &t) {
+        if (&t==this)
+            return *this;
+        clear();
+        Elem *tmp = t.Front;
+        for(size_type i = 0; i < Count; ++i){
+            push_back(tmp);
+            tmp = tmp->Next;
+        }
+    }
+
+    Deque(const Deque &t) {
+        Elem *tmp = t.Front;
+        for(size_type i = 0; i < Count; ++i){
+            push_back(tmp);
+            tmp = tmp->Next;
+        }
+    }
+
+    /*Deque(const Deque &t) {
+        Elem *tmp = t.Front;
+        for(int i = 0; i < Count; ++i){
+            push_back(tmp);
+            tmp = tmp->Next;
+        }
+    }*/
+
     ~Deque() {
         Elem *delete_Elem = Front;
         for (Elem *p = Front; p != Rear;)
@@ -209,10 +245,25 @@ public:
         return tmp->Value;
     }
 
+    void swap(Deque& other)
+    {
+        std::swap(Count, other.Count);
+        std::swap(Front, other.Front);
+        std::swap(Rear, other.Rear);
+        std::swap(ffront, other.ffront);
+        std::swap(rear, other.rear);
+    }
+
 private:
     class Elem {
     public:
         Elem(const value_type &a) : Value(a) {}
+
+        Elem(const Elem &t) {
+            Next=NULL;
+            Prev=NULL;
+            Value=t.Value;
+        }
 
         Elem() {}
 
@@ -222,11 +273,8 @@ private:
         Elem *Prev;
     };
 
-    Deque &operator=(const Deque &) {}
 
-    Deque(const Deque &) {}
-
-    value_type Count;
+    size_type Count;
     Elem *Front;
     Elem *Rear;
     Iterator ffront;
