@@ -102,7 +102,7 @@ public:
     Deque(const Deque &t) {
         Elem *tmp = t.Front;
         for(size_type i = 0; i < Count; ++i){
-            push_back(tmp);
+            push_back(tmp->Value);
             tmp = tmp->Next;
         }
     }
