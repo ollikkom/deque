@@ -94,9 +94,10 @@ public:
         clear();
         Elem *tmp = t.Front;
         for(size_type i = 0; i < Count; ++i){
-            push_back(tmp);
+            push_back(tmp->Value);
             tmp = tmp->Next;
         }
+        return *this;
     }
 
     Deque(const Deque &t) {
@@ -141,14 +142,14 @@ public:
         if (empty())
             throw new DequeEmptyException();
 
-        return Front->Prev->Value;
+        return Front->Value;
     }
 
     reference back() {
         if (empty())
             throw new DequeEmptyException();
 
-        return Rear->Next->Value;
+        return Rear->Prev->Value;
     }
 
 
