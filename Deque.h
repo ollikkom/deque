@@ -190,7 +190,6 @@ public:
             Front->Prev = 0;
             ffront = Iterator(Front);
             --Count;
-            delete p;
         }
 
     }
@@ -198,13 +197,14 @@ public:
     void pop_back() {
         if (!empty()) {
             Elem *p = Rear->Prev;
-            if (p == 0) pop_front();
+            if (p == nullptr) pop_front();
             else {
-                p->Prev->Next = Rear;
-                Rear->Prev = p->Prev;
-                delete p;
+                Rear->Prev= nullptr;
+                Rear=p;
+                p->Next = nullptr;
+                --Count;
             }
-            --Count;
+
         }
 
     }
@@ -213,8 +213,8 @@ public:
         Elem *tmp;
         while (Front != nullptr) {
             tmp = Front;
-            Front = Front->Next;//переходим к след
-            delete tmp;// удаляем предыдущий
+            Front = Front->Next;
+            delete tmp;
         }
     }
 
